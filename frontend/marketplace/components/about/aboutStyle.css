@@ -1,0 +1,206 @@
+#about_us { scroll-margin-top: 90px; }
+
+.about{
+  padding: 90px 24px;
+  background: radial-gradient(1200px 600px at 20% 10%, rgba(100,120,255,0.10), transparent 60%),
+              radial-gradient(900px 520px at 80% 60%, rgba(255,120,200,0.08), transparent 55%),
+              #0b0b0b;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtil “noise” / grain (optional) */
+.about::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+  opacity: .08;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.about-wrap{
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Reveal system (la scroll) ===== */
+/* ===== Reveal system (la scroll + merge și la refresh) ===== */
+.reveal{
+  opacity: 0;
+  transform: translateY(18px) scale(0.99);
+  filter: blur(8px);
+  will-change: transform, opacity, filter;
+}
+
+/* când devine vizibil → rulează animația (nu depinde de transition) */
+.reveal.is-visible{
+  animation: revealIn .75s cubic-bezier(.2,.8,.2,1) both;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes revealIn{
+  from{
+    opacity: 0;
+    transform: translateY(18px) scale(0.99);
+    filter: blur(8px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Stagger pe carduri când devin vizibile */
+.about-sections .about-card.reveal{ --d: 0ms; }
+.about-sections .about-card.reveal:nth-child(2){ --d: 120ms; }
+.about-sections .about-card.reveal:nth-child(3){ --d: 240ms; }
+
+
+/* ===== HERO ===== */
+.about-hero{
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 28px;
+  align-items: center;
+
+  padding: 28px 26px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 22px 70px rgba(0,0,0,0.55);
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* glow accent corner */
+.about-hero::after{
+  content:"";
+  position:absolute;
+  width: 420px; height: 420px;
+  right:-220px; top:-260px;
+  background: radial-gradient(circle, rgba(120,140,255,0.28), transparent 62%);
+  filter: blur(2px);
+  pointer-events:none;
+}
+
+.about-copy h2{
+  font-size: clamp(26px, 2.3vw, 36px);
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+}
+
+.about-copy p{
+  opacity: 0.90;
+  line-height: 1.75;
+  margin-top: 10px;
+  max-width: 70ch;
+}
+
+.about-media{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.about-img{
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.45);
+
+  transform: translateZ(0);
+  animation: aboutFloat 6.5s ease-in-out infinite;
+}
+
+/* float subtil pe imagine */
+@keyframes aboutFloat{
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* ===== Cards ===== */
+.about-sections{
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.about-card{
+  padding: 16px 16px 18px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: 0 16px 44px rgba(0,0,0,0.35);
+  position: relative;
+  overflow: hidden;
+
+  transition: transform .28s cubic-bezier(.2,.8,.2,1),
+              border-color .28s ease,
+              box-shadow .28s ease;
+}
+
+/* shine sweep (când intră hover) */
+.about-card::before{
+  content:"";
+  position:absolute; inset:-2px;
+  background: linear-gradient(120deg, transparent 35%, rgba(160,180,255,0.10), transparent 65%);
+  transform: translateX(-60%);
+  opacity: 0;
+  transition: opacity .25s ease, transform .55s ease;
+  pointer-events:none;
+}
+
+.about-card:hover{
+  transform: translateY(-6px);
+  border-color: rgba(160,180,255,0.35);
+  box-shadow: 0 24px 70px rgba(0,0,0,0.55);
+}
+
+.about-card:hover::before{
+  opacity: 1;
+  transform: translateX(60%);
+}
+
+.about-card h3{
+  font-size: 15px;
+  font-weight: 900;
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+
+.about-card p{
+  opacity: 0.86;
+  line-height: 1.7;
+}
+
+/* Stagger pe carduri când devin vizibile */
+.about-sections .about-card.reveal{ transition-delay: 0ms; }
+.about-sections .about-card.reveal:nth-child(2){ transition-delay: 120ms; }
+.about-sections .about-card.reveal:nth-child(3){ transition-delay: 240ms; }
+
+/* Responsive */
+@media (max-width: 980px){
+  .about-hero{ grid-template-columns: 1fr; }
+  .about-media{ justify-content: flex-start; }
+  .about-sections{ grid-template-columns: 1fr; }
+  .about-img{ animation-duration: 7.5s; }
+}
+
+/* Respectă preferințele utilizatorului */
+@media (prefers-reduced-motion: reduce){
+  .reveal, .reveal.is-visible{
+    transition: none;
+    transform: none;
+    filter: none;
+    opacity: 1;
+  }
+  .about-img{ animation: none; }
+  .about-card, .about-card::before{ transition: none; }
+}
