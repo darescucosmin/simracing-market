@@ -42,9 +42,4 @@ Proiect demonstrativ pentru facultate, construit cu **Next.js (React + TypeScrip
 - Separare clară: `frontend` (Next.js) + `backend` (Express)
 - Structură pregătită pentru: coș, comenzi, plăți (simulat), favorite, review-uri
 
----
-
-## 📁 Structura proiectului
-
-Repo-ul este organizat tip monorepo:
 
